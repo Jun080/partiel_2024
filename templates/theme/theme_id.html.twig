@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Thème{% endblock %}
+
+{% block body %}
+    <h1>Détails du Thème</h1>
+    <p>Thème: {{ theme.theme }}</p>
+    <p>Nombre de places gagnants: {{ theme.nombrePlacesGagnants }}</p>
+    <h2>Propositions</h2>
+    <ul>
+        {% for proposition in theme.propositions %}
+            <li>{{ proposition }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

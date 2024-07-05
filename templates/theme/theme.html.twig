@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Thème{% endblock %}
+
+{% block body %}
+    <h1>Nouveau Thème</h1>
+
+    {{ form_start(themeForm) }}
+    {{ form_row(themeForm.theme) }}
+    {{ form_row(themeForm.nombrePlacesGagnants) }}
+
+    <h2>Propositions</h2>
+    <ul id="propositions-list" data-prototype="{{ form_widget(themeForm.propositions.vars.prototype)|e }}">
+        {% for proposition in themeForm.propositions %}
+            <li>{{ form_row(proposition) }}</li>
+        {% endfor %}
+    </ul>
+
+    <button type="button" id="add-proposition">Ajouter une proposition</button>
+
+    <button type="submit" class="btn btn-primary">Créer</button>
+    {{ form_end(themeForm) }}
+
+    <script>
+        var $addButton = document.getElementById('add-proposition');
+        var $collectionHolder = document.getElementById('propositions-list');
+
+        $addButton.addEventListener('click', function() {
+            var prototype = $collectionHolder.getAttribute('data-prototype');
+            var index = $collectionHolder.children.length;
+
+            var newForm = prototype.replace(/__name__/g, index);
+            var newLi = document.createElement('li');
+            newLi.innerHTML = newForm;
+            $collectionHolder.appendChild(newLi);
+        });
+    </script>
+{% endblock %}
